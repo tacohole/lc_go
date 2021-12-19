@@ -9,32 +9,22 @@ func main() {
 
 	needle := 6
 
-	find := searchInsert(haystack, needle)
+	find := twoSum(haystack, needle)
 
 	fmt.Printf("%d", find)
 }
 
-func searchInsert(nums []int, target int) int {
-	if target == 0 {
-		return 0
-	}
-	mid := len(nums) / 2
-	// if middle is greater than target, count down from middle to target and return index
-	if nums[mid] > target {
-		for i := mid; i > len(nums[:mid]); i-- {
-			if nums[i] <= target {
-				return i
-			}
+func twoSum(nums []int, target int) []int {
+
+	seen := map[int]int{}
+
+	for i, num := range nums {
+		match := target - num
+		if j, found := seen[match]; found {
+			return []int{i, j}
 		}
-	}
-	// if middle is less than target, count up from middle to target and return index
-	if nums[mid] < target {
-		for i := mid; i < len(nums[mid:]); i++ {
-			if nums[i] >= target {
-				return i
-			}
-		}
+		seen[num] = i
 	}
 
-	return 0
+	return []int{}
 }
