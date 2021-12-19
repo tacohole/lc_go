@@ -1,18 +1,7 @@
 package main
 
-import (
-	"fmt"
-)
-
-func main() {
-	haystack := []int{1, 2, 4, 5, 7, 8}
-
-	needle := 6
-
-	find := searchInsert(haystack, needle)
-
-	fmt.Printf("%d", find)
-}
+//Given a sorted array of distinct integers and a target value, return the index if the target is found.
+// If not, return the index where it would be if it were inserted in order.
 
 func searchInsert(nums []int, target int) int {
 	if target == 0 {
