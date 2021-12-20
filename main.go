@@ -5,26 +5,41 @@ import (
 )
 
 func main() {
-	haystack := []int{1, 2, 4, 5, 7, 8}
+	haystack := []int{1, 3, 5, 6, 9}
 
-	needle := 6
+	needle := 8
 
-	find := twoSum(haystack, needle)
+	find := searchInsert(haystack, needle)
 
 	fmt.Printf("%d", find)
 }
 
-func twoSum(nums []int, target int) []int {
+func searchInsert(nums []int, target int) int {
 
-	seen := map[int]int{}
+	// find midpoint
+	mid := len(nums) / 2
 
-	for i, num := range nums {
-		match := target - num
-		if j, found := seen[match]; found {
-			return []int{i, j}
+	// if the number at the midpoint is greater than target, count down from middle to target and return index
+	if nums[mid] >= target {
+		for i := mid; i > -1; i-- {
+			// if we hit or pass up the target return
+			if nums[i] == target {
+				return i
+			}
+			if nums[i] < target {
+				return i + 1
+			}
 		}
-		seen[num] = i
+		return 0
 	}
-
-	return []int{}
+	// if middle is less than target, count up from middle to target and return index
+	if nums[mid] < target {
+		for i := mid; i < len(nums); i++ {
+			if nums[i] >= target {
+				return i
+			}
+		}
+	}
+	// if we get here our target is the end of the array
+	return len(nums)
 }
