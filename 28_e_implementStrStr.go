@@ -13,7 +13,7 @@ func strStr(haystack string, needle string) int {
 		sub := len(needle)
 		bale := strings.Split(haystack, "")
 
-		for i, _ := range bale {
+		for i := range bale {
 			if strings.Join(bale[i:i+sub], "") == needle {
 				return i
 			}
