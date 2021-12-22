@@ -1,19 +1,8 @@
 package main
 
-import (
-	"fmt"
-)
-
-func main() {
-	//haystack := []int{5, 4, -1, 7, 8}
-
-	str := "Hello World"
-
-	find := lengthOfLastWord(str)
-
-	fmt.Printf("%d", find)
-}
-
+// Given a string s consisting of some words separated by some number of spaces,
+// return the length of the last word in the string.
+// A word is a maximal substring consisting of non-space characters only.
 func lengthOfLastWord(s string) int {
 	var length int
 
@@ -27,3 +16,5 @@ func lengthOfLastWord(s string) int {
 	}
 	return length
 }
+
+// 100/81
