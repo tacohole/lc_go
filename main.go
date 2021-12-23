@@ -5,25 +5,39 @@ import (
 )
 
 func main() {
-	//haystack := []int{5, 4, -1, 7, 8}
+	haystack := []int{8, 9, 9, 9}
 
-	str := "Hello World"
+	// str := "Hello World"
 
-	find := lengthOfLastWord(str)
+	find := plusOne(haystack)
 
 	fmt.Printf("%d", find)
 }
 
-func lengthOfLastWord(s string) int {
-	var length int
+func plusOne(digits []int) []int {
+	// find last digit
+	end := len(digits) - 1
 
-	for i := range s {
-		if string(s[i]) != " " {
-			if i > 0 && string(s[i-1]) == string(" ") {
-				length = 0
+	// if not nine, just add
+	if digits[end] != 9 {
+		digits[end] += 1
+	} else {
+		// as long as we hit nines, flip to 0 and +1 to previous digit
+		for i := end; i >= 0; i-- {
+			// what if we hit a 9 at the start?
+			if i == 0 && digits[i] == 9 {
+				digits = append([]int{1}, digits...)
+				digits[i+1] = 0
+			} else if digits[i-1] == 9 {
+				// if the next digit is also a 9, flip to 0 and continue the loop
+				digits[i] = 0
+				continue
+			} else {
+				// we hit the last 9
+				digits[i] = 0
+				digits[i-1] += 1
 			}
-			length++
 		}
 	}
-	return length
+	return digits
 }
