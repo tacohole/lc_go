@@ -14,15 +14,24 @@ func plusOne(digits []int) []int {
 		digits[end] += 1
 	} else {
 		// as long as we hit nines, flip to 0 and +1 to previous digit
-		for i := end; digits[i] == 9; i-- {
-			digits[i] = 0
-			// what if we hit the start?
-			if i == 0 {
+		for i := end; i >= 0; i-- {
+			// what if we hit a 9 at the start?
+			if i == 0 && digits[i] == 9 {
 				digits = append([]int{1}, digits...)
+				digits[i+1] = 0
+			} else if digits[i-1] == 9 {
+				// if the next digit is also a 9, flip to 0 and continue the loop
+				digits[i] = 0
+				continue
 			} else {
+				// we hit the last 9
+				digits[i] = 0
 				digits[i-1] += 1
+				break
 			}
 		}
 	}
 	return digits
 }
+
+// 100/100

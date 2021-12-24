@@ -2,42 +2,39 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
-	haystack := []int{8, 9, 9, 9}
+	//haystack := []int{9, 9, 9, 9}
 
-	// str := "Hello World"
+	a := "10"
+	b := "10"
 
-	find := plusOne(haystack)
+	find := addBinary(a, b)
 
-	fmt.Printf("%d", find)
+	fmt.Printf("%s", find)
 }
 
-func plusOne(digits []int) []int {
-	// find last digit
-	end := len(digits) - 1
+func addBinary(a string, b string) string {
+	ansSlice := []string{}
 
-	// if not nine, just add
-	if digits[end] != 9 {
-		digits[end] += 1
-	} else {
-		// as long as we hit nines, flip to 0 and +1 to previous digit
-		for i := end; i >= 0; i-- {
-			// what if we hit a 9 at the start?
-			if i == 0 && digits[i] == 9 {
-				digits = append([]int{1}, digits...)
-				digits[i+1] = 0
-			} else if digits[i-1] == 9 {
-				// if the next digit is also a 9, flip to 0 and continue the loop
-				digits[i] = 0
-				continue
+	for i := len(a) - 1; i > 0; i-- {
+		for j := len(b) - 1; j > 0; j-- {
+			if a[i] == b[j] && string(b[j]) == "0" {
+				ansSlice = append([]string{"0"}, ansSlice...)
+				fmt.Print("b1")
+			}
+			if a[i] == b[j] && string(b[j]) == "1" {
+				ansSlice = append([]string{"10"}, ansSlice...)
+				fmt.Print("b2")
 			} else {
-				// we hit the last 9
-				digits[i] = 0
-				digits[i-1] += 1
+				ansSlice = append([]string{"1"}, ansSlice...)
+				fmt.Print("b3")
 			}
 		}
 	}
-	return digits
+
+	// back to string
+	return strings.Join(ansSlice, "")
 }
