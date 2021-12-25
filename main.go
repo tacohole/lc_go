@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 func main() {
 	//haystack := []int{9, 9, 9, 9}
 
-	a := "10"
-	b := "10"
+	a := "10101"
+	b := "10111"
 
 	find := addBinary(a, b)
 
@@ -17,24 +16,31 @@ func main() {
 }
 
 func addBinary(a string, b string) string {
-	ansSlice := []string{}
 
-	for i := len(a) - 1; i > 0; i-- {
-		for j := len(b) - 1; j > 0; j-- {
-			if a[i] == b[j] && string(b[j]) == "0" {
-				ansSlice = append([]string{"0"}, ansSlice...)
-				fmt.Print("b1")
-			}
-			if a[i] == b[j] && string(b[j]) == "1" {
-				ansSlice = append([]string{"10"}, ansSlice...)
-				fmt.Print("b2")
-			} else {
-				ansSlice = append([]string{"1"}, ansSlice...)
-				fmt.Print("b3")
-			}
-		}
+	// handle any differences in length
+	shortest, longest := len(a), len(b)
+	if shortest > longest {
+		shortest, longest = longest, shortest
+		a, b = b, a
 	}
 
-	// back to string
-	return strings.Join(ansSlice, "")
+	// byte slice to put answer that's the size of the longest string
+	ans := make([]byte, longest+1)
+
+	for i := longest - 1; i >= 0; i-- {
+		ans[i+1] += b[i] - '0'
+		if i >= longest-shortest {
+			ans[i+1] += a[i+shortest-longest] - '0'
+		}
+		ans[i] = ans[i+1] >> 1
+		ans[i+1] = (ans[i+1] & 1) + '0'
+
+	}
+	ans[0] = ans[0] + '0'
+	if ans[0] == '0' {
+		return string(ans[1:])
+	} else {
+		return string(ans)
+	}
+
 }

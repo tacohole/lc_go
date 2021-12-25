@@ -1,7 +1,5 @@
 package main
 
-import "strings"
-
 // Given two binary strings a and b, return their sum as a binary string.
 
 // 0 + 0 = 0
@@ -10,29 +8,34 @@ import "strings"
 // 1 + 1 =10
 
 func addBinary(a string, b string) string {
-	strMap := make(map[byte]byte)
-	// add bytes to map
 
-	for i := 0; i < len(a); i++ {
-		for j := 0; j < len(b); j++ {
-			strMap[a[i]] = b[j]
-		}
+	// handle any differences in length
+	shortest, longest := len(a), len(b)
+	if shortest > longest {
+		shortest, longest = longest, shortest
+		a, b = b, a
 	}
 
-	ansSlice := []string{}
+	// byte slice to put answer that's the size of the longest string
+	ans := make([]byte, longest+1)
 
-	// add according to rules
-	for k, v := range strMap {
-		if strMap[k] == v && v == 0 {
-			ansSlice = append(ansSlice, string(v))
+	for i := longest - 1; i >= 0; i-- {
+		//
+		ans[i+1] += b[i] - '0'
+		if i >= longest-shortest {
+			ans[i+1] += a[i+shortest-longest] - '0'
 		}
-		if strMap[k] == v && v == 1 {
-			ansSlice = append(ansSlice, "10")
-		} else {
-			// either k or v is 0, append 1
-			ansSlice = append(ansSlice, "1")
-		}
+		ans[i] = ans[i+1] >> 1
+		ans[i+1] = (ans[i+1] & 1) + '0'
+
 	}
-	// back to string
-	return strings.Join(ansSlice, "")
+	ans[0] = ans[0] + '0'
+	if ans[0] == '0' {
+		return string(ans[1:])
+	} else {
+		return string(ans)
+	}
+
 }
+
+// 100/80.73
