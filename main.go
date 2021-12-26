@@ -7,40 +7,23 @@ import (
 func main() {
 	//haystack := []int{9, 9, 9, 9}
 
-	a := "10101"
-	b := "10111"
+	a := 3
 
-	find := addBinary(a, b)
+	find := climbStairs(a)
 
-	fmt.Printf("%s", find)
+	fmt.Printf("%d", find)
 }
 
-func addBinary(a string, b string) string {
-
-	// handle any differences in length
-	shortest, longest := len(a), len(b)
-	if shortest > longest {
-		shortest, longest = longest, shortest
-		a, b = b, a
+func climbStairs(n int) int {
+	if n <= 1 {
+		return n
 	}
 
-	// byte slice to put answer that's the size of the longest string
-	ans := make([]byte, longest+1)
+	previous, current := 1, 1
 
-	for i := longest - 1; i >= 0; i-- {
-		ans[i+1] += b[i] - '0'
-		if i >= longest-shortest {
-			ans[i+1] += a[i+shortest-longest] - '0'
-		}
-		ans[i] = ans[i+1] >> 1
-		ans[i+1] = (ans[i+1] & 1) + '0'
-
-	}
-	ans[0] = ans[0] + '0'
-	if ans[0] == '0' {
-		return string(ans[1:])
-	} else {
-		return string(ans)
+	for i := 1; i < n; i++ {
+		previous, current = current, previous+current
 	}
 
+	return current
 }
