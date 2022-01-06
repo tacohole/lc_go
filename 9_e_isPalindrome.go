@@ -7,20 +7,20 @@ import (
 
 // Given an integer x, return true if x is palindrome integer.
 func IsPalindrome(x int) bool {
-	if x < 0 {
-		return false
-	}
 
 	intToStr := strconv.Itoa(x)
 
 	strArray := strings.Split(intToStr, "")
+	end := len(strArray) - 1
 
-	reversed := ""
-	for _, char := range strArray {
-		reversed = char + reversed
+	for i := 0; i < end; i++ {
+		if strArray[i] != strArray[end] {
+			return false
+		}
+		end--
 	}
 
-	return reversed == intToStr
+	return true
 }
 
 // 63/10

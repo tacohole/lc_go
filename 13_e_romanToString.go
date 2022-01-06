@@ -13,7 +13,7 @@ var Roman = map[string]int{
 // Given a roman numeral, convert it to an integer.
 
 func romanToInt(s string) int {
-	sum := 0
+	var sum int
 
 	for i := 0; i < len(s); i++ {
 		char := string(s[i])

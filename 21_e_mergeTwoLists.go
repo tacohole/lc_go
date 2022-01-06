@@ -49,4 +49,4 @@ func MergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	return list2
 }
 
-// 9.42/17.01
+// 100/41.75
