@@ -1,13 +1,14 @@
 package main
 
-func lengthOfLongestSubstring(s string) int {
+// Given a string s, find the length of the longest substring without repeating characters.
+func LengthOfLongestSubstring(s string) int {
 	// storing the substring we have
 	var arr = make([]byte, 0)
 	// two pointers and the max length
-	var i, j, res = 0, 0, 0
+	var i, j, max = 0, 0, 0
 	// while neither pointer is out of range
 	for i < len(s) && j < len(s) {
-		// if we find the 2nd pointer char in the array
+		// if we find the char at the 2nd pointer in the array
 		if isExist(arr, s[j]) {
 			// truncate the array to remove the duplicate
 			arr = arr[1:]
@@ -19,13 +20,13 @@ func lengthOfLongestSubstring(s string) int {
 			// advance the 2nd pointer
 			j++
 			// if we've exceeded the max length we've seen
-			if res < len(arr) {
+			if max < len(arr) {
 				// reset the max length
-				res = len(arr)
+				max = len(arr)
 			}
 		}
 	}
-	return res
+	return max
 }
 
 func isExist(arr []byte, key byte) bool {

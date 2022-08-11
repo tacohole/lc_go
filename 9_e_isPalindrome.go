@@ -1,26 +1,31 @@
 package main
 
-import (
-	"strconv"
-	"strings"
-)
-
 // Given an integer x, return true if x is palindrome integer.
 func IsPalindrome(x int) bool {
+	if x < 0 {
+		return false
+	}
+	// using a divisor to figure out how many times x goes into 10
+	divisor := 1
 
-	intToStr := strconv.Itoa(x)
+	// build up the divisor
+	for x/divisor >= 10 {
+		divisor *= 10
+	}
 
-	strArray := strings.Split(intToStr, "")
-	end := len(strArray) - 1
-
-	for i := 0; i < end; i++ {
-		if strArray[i] != strArray[end] {
+	for x != 0 {
+		// checking the first number vs the last number
+		if x/divisor != x%10 {
 			return false
 		}
-		end--
+
+		x %= divisor
+		x /= 10
+
+		divisor /= 100
 	}
 
 	return true
 }
 
-// 63/10
+// 98/61
